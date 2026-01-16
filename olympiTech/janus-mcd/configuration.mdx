@@ -1,0 +1,158 @@
+---
+title: "Configuration"
+description: "Detailed configuration reference for JanusMCD."
+---
+
+All configs live in `plugins/JanusMCD/`.
+
+## `config.yml` (Main)
+
+### Discord
+
+- **`discord-token`** (string, required)
+  - Discord bot token.
+  - Use a placeholder in shared configs and never commit your real token.
+
+- **`channel-ids`** (list mixed)
+  - Supports a mixed list of simple **Strings** (Legacy Bot Message) and **Objects** (Advanced Webhook).
+  - **String format**: `"123456789"`
+  - **Object format**:
+    ```yaml
+    - id: "123456789"
+      webhook-url: "https://discord.com/api/webhooks/..."
+      mode: "DISCORD" # MINECRAFT, DISCORD, HYBRID_MINECRAFT, HYBRID_DISCORD
+    ```
+  - **Modes**:
+    - `MINECRAFT`: Uses player's IGN and Skin.
+    - `DISCORD`: Uses linked Discord user's Display Name and Avatar (fallback to MC if unlinked).
+    - `HYBRID_MINECRAFT`: MC identity + footer `Linked as @DiscordUser`.
+    - `HYBRID_DISCORD`: Discord identity + footer `IGN: PlayerName`.
+
+- **`cross-discord-sync`** (bool, default `true`)
+  - If `true`, a message received in one relay channel is re-posted to the other relay channels.
+
+- **`console-channel-ids`** (list of strings)
+  - Discord channels treated as “console control” channels.
+  - Supports legacy single key `console-channel-id` (string) for backward compatibility.
+
+- **`allow-console-commands`** (bool, default `true`)
+  - If enabled, messages in console channels can be executed as server console commands.
+
+### Status embeds
+
+`status-embeds` is a list of objects. Each entry supports:
+
+- **`enabled`** (bool, default `true`)
+- **`channel-id`** (string)
+- **`message-id`** (string)
+  - You can leave this empty; JanusMCD will create the embed and store the resulting ID into `data.yml`.
+- **`server-name`** (string)
+- **`update-interval`** (int seconds, default `60`)
+- **`detailed-info`** (bool, default `true`)
+- **`online-emoji`** (string, default `🟢`)
+- **`offline-emoji`** (string, default `🔴`)
+
+Example:
+
+```yaml
+status-embeds:
+  - enabled: true
+    channel-id: "123456789012345678"
+    message-id: ""
+    server-name: "Survival"
+    update-interval: 60
+    detailed-info: true
+    online-emoji: "🟢"
+    offline-emoji: "🔴"
+```
+
+### Filtering
+
+- **`filtering.enabled`** (bool, default `true`)
+- **`filtering.banned-words`** (list of strings)
+- **`filtering.banned-patterns`** (list of regex strings)
+  - Regex patterns are compiled case-insensitive; invalid patterns are logged and ignored.
+- **`filtering.action`** (string, default `block`)
+  - Observed options: `block`, `replace`, `log`.
+- **`filtering.replace-with`** (string, default `***`)
+- **`filtering.block-urls.enabled`** (bool, default `true`)
+- **`filtering.block-urls.action`** (string, default `replace`)
+- **`filtering.block-urls.replace-with`** (string, default `[URL removed]`)
+
+### Anti-spam
+
+- **`anti-spam.enabled`** (bool)
+- **`anti-spam.max-messages`** (int)
+- **`anti-spam.time-period`** (int seconds)
+- **`anti-spam.cooldown`** (int seconds)
+- **`anti-spam.notify-user`** (bool)
+- **`anti-spam.notify-message`** (string; supports `{cooldown}`)
+
+### Command logging
+
+- **`command-logging.enabled`** (bool, default `true`)
+- **`command-logging.channel-ids`** (list of strings)
+- **`command-logging.embed-color`** (string hex, default `#3498db`)
+
+### Join/leave messages
+
+- **`join-leave-messages.use-embeds`** (bool)
+- **`join-leave-messages.channel-id`** (string; empty uses first `channel-ids`)
+- **`join-leave-messages.colors.join`** (hex)
+- **`join-leave-messages.colors.leave`** (hex)
+- **`join-leave-messages.show-player-avatar`** (bool)
+- **`join-leave-messages.avatar-url`** (string template)
+  - Supports `{uuid}` and `{name}`.
+- **`join-leave-messages.avatar-location`** (string, default `thumbnail`)
+  - Options: `thumbnail`, `author`, `both`, `none`.
+
+### Server notifications
+
+- **`server-notifications.channel-ids`** (list; empty means “all chat channels”)
+- **`server-notifications.startup.enabled`** (bool)
+- **`server-notifications.startup.message`** (string)
+- **`server-notifications.shutdown.enabled`** (bool)
+- **`server-notifications.shutdown.message`** (string)
+
+## `account-linking.yml`
+
+Governs the DM-based account linking flow.
+
+- **`account-linking.enabled`** (bool)
+- **`account-linking.require-verification`** (bool)
+- **`account-linking.limits.max_links_per_discord`** (int; enforced to 1..3)
+- **`code-expiry-minutes`** (int)
+- **`cooldown-seconds`** (int)
+- **`link-message`**, **`invalid-code-message`**, **`success-message`**, **`already-linked-message`** (strings)
+
+## `voice.yml`
+
+Manages the Proximity Voice Chat (PVC) feature.
+
+- **`enabled`** (bool)
+- **`category-id`** (string, required): ID of the Discord **Category** where temporary voice channels will be created.
+- **`lobby-channel-id`** (string, required): ID of the static "Waiting Room" voice channel.
+- **`proximity-radius`** (int blocks, default `20`)
+- **`update-interval`** (int seconds, default `5`)
+- **`mute-on-death`** (bool, default `true`)
+- **`channel-name-format`** (string, default `Voice Group %d`)
+
+## `vanish.yml`
+
+- **`enabled`** (bool)
+- **`vanish-on-join`** (bool)
+- **Suppressions**: `ingame-messages`, `discord-messages`, `advancements`, `death-messages`
+- **Interactions**: `prevent-item-pickup`, `prevent-mob-targeting`, `prevent-block-interaction`, `prevent-damage`, `prevent-physical-interactions`
+- **`action-bar-message`** (string)
+
+## `deathmessages.yml`
+
+- **`enabled`** (bool)
+- **`channel-id`** (string)
+- **`use-embed`** (bool)
+- **`message-format`** (string)
+
+## `debug.yml`
+
+- **`debug.enabled`** (bool)
+- **`debug.level`** (string): `SEVERE`, `WARNING`, `INFO`, `CONFIG`, `FINE`, `FINER`, `FINEST`

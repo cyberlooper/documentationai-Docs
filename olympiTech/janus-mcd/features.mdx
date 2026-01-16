@@ -1,0 +1,39 @@
+---
+title: "Features"
+description: "In-depth explanation of JanusMCD features."
+---
+
+## Proximity Voice Chat
+
+**How it works:**
+1. Players join the **Lobby Channel** in Discord (configured in `voice.yml`).
+2. JanusMCD tracks their in-game location.
+3. If players are within `proximity-radius` of each other, the bot **automatically** moves them into a temporary **Voice Group** channel.
+4. When they move apart, they are returned to the Lobby or reassigned to new groups.
+
+**Note**: This feature is entirely automated. There are no in-game commands for players to run.
+
+## Stealth Vanish
+
+JanusMCD uses **ProtocolLib** for deep stealth integration. This provides true invisibility at the packet level.
+
+**Capabilities**:
+- **Entity Hiding**: You are completely invisible to clients.
+- **Silent Chests**: Opening chests/barrels/shulkers while vanished does NOT trigger opening animations or sounds for other players.
+- **Tab-Complete Protection**: Vanished players are removed from tab-complete lists.
+- **Server List Suppression**: Vanished players are hidden from the server list player count/hover.
+
+## Account Linking
+
+- Players can link their Discord account to their Minecraft account via a DM-based verification flow.
+- Supports enforcing a limit on links per Discord account (e.g. max 1 or 3).
+- Verification codes expire after a configured time.
+- Logging webhooks track link creations/removals.
+
+## SkinsRestorer Integration
+
+**Q: My server is in Offline/Cracked mode. Will heads work in webhooks?**
+A: **Yes**, fully supported via **SkinsRestorer**.
+- JanusMCD detects SkinsRestorer (v14 and v15+) automatically.
+- It uses the player's *Skin Name* (set via `/skin`) to fetch the avatar, ensuring the webhook matches their visual appearance, not their Steve/Alex UUID.
+- Default `avatar-url` templates (e.g., `mc-heads.net`) support this out of the box.

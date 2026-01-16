@@ -1,0 +1,50 @@
+---
+title: "Commands"
+description: "Command reference for JanusMCD."
+---
+
+## Minecraft Commands
+
+### `/janusmcd reload`
+- **Permission**: `janusmcd.reload`
+- Reloads config files and updates many in-memory settings.
+
+### `/freeze <player>`
+- **Permission**: `janusmcd.freeze`
+- Freezes a player.
+
+### `/vanish`
+- **Permission**: `janusmcd.vanish`
+- Toggle vanish status.
+- **Related Permissions**:
+    - `janusmcd.vanish.see`: See vanished players.
+    - `janusmcd.vanish.no-pickup.bypass`: Bypass pickup restriction.
+    - `janusmcd.vanish.interact`: Bypass interact restriction.
+    - `janusmcd.vanish.chat`: Allow chatting while vanished.
+    - `janusmcd.vanish.reload`: Reload vanish configuration.
+    - `janusmcd.vanish.other`: Toggle vanish for other players.
+
+### `/voice`
+> **Note**: There is no `/voice` command. Proximity Voice Chat works automatically by moving players in Discord based on their in-game location.
+
+## Discord Slash Commands
+
+These commands are registered on **all** Discord servers the bot is in, but require strictly enforced permissions.
+
+### Link Management
+
+*   **`/link status <user>`**
+    *   **Permission**: `MANAGE_SERVER` (Admin Only)
+    *   Checks the account link status for a Discord user.
+*   **`/link remove <user> <uuid>`**
+    *   **Permission**: `MANAGE_SERVER`
+    *   Removes a specific Minecraft account link from a Discord user.
+*   **`/link clear <user>`**
+    *   **Permission**: `MANAGE_SERVER`
+    *   Removes *all* Minecraft account links for a Discord user.
+
+### Reporting
+
+*   **`/report`**
+    *   **Permission**: `MANAGE_SERVER` (Admin Only)
+    *   Generates a visual "Server Metrics Report" chart showing DAU (Daily Active Users), retention rates, average session length, and online player trends.

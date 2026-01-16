@@ -1,0 +1,36 @@
+---
+title: "Features"
+description: "Advanced features like Scaling and Integrations."
+---
+
+## Punishment Scaling
+
+Tartarus Punishments supports three powerful scaling modes to automate discipline:
+
+### 1. Global Linear Scaling
+- **Disabled by default**.
+- A "Three Strikes" style system.
+- Every time a player receives **any** punishment, their global strike count increases.
+- If they hit the `threshold`, the configured `action` is applied.
+
+### 2. Linear Mode (Per Reason)
+- Configured inside a specific `ban-reason` (e.g. `mode: linear`).
+- Counts how many times the player has been punished for *this specific reason*.
+- If they hit the `linear-threshold`, the `linear-action` is applied.
+
+### 3. Fractal Mode (Per Reason)
+- Configured inside a specific `ban-reason` (e.g. `mode: fractal`).
+- Defines a list of `steps` (ladder).
+- Example:
+    - Step 1: 1 hour Mute
+    - Step 2: 12 hour Mute
+    - Step 3: 7 day Ban
+    - Step 4: Permanent Ban
+- The plugin automatically applies the next step in the ladder.
+
+## Integrations
+
+### JanusMCD
+Tartarus Punishments automatically detects if **JanusMCD** is installed.
+- It registers a **Ban Checker** with JanusMCD.
+- If you use JanusMCD's "Linked Accounts" feature, banning one account via Tartarus will automatically prevent all other linked accounts from joining usage.

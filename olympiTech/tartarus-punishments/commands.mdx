@@ -1,0 +1,39 @@
+---
+title: "Commands"
+description: "Command reference for text commands."
+---
+
+## `/punish <player> <reason>`
+- **Aliases**: `/ban`, `/banplayer`
+- **Base permission**: `tartarus.punishments.punish`
+- Applies the reason preset (ban/mute/prison) from `config.yml`.
+
+## `/forgive <player>`
+- **Aliases**: `/unban`, `/pardon`
+- **Permission**: `tartarus.punishments.forgive`
+- Clears the player’s punishment record.
+- If the player is in prison and online, returns them to origin and unfreezes.
+
+## `/banlist`
+- **Aliases**: `/bans`
+- **Permission**: `tartarus.punishments.banlist`
+- Lists all banned players.
+
+## `/prison <player> <duration>`
+- **Permission**: `tartarus.punishments.prison`
+- Imprisons a player for a custom duration.
+
+## `/setprison`
+- **Permission**: `tartarus.punishments.setprison`
+- Sets the prison teleport location to your current position.
+
+## `/screenshare <player>`
+- **Permission**: `tartarus.punishments.screenshare`
+- Player must be online.
+- Applies a screenshare freeze.
+- If they log out, the `screensharereject` punishment is applied.
+
+## `/checkpunishments <player>`
+- **Aliases**: `/checkp`, `/pcheck`, `/history`, `/phistory`
+- **Permission**: `tartarus.punishments.check`
+- Displays a comprehensive punishment history breakdown.

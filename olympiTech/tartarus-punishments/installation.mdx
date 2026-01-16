@@ -1,0 +1,33 @@
+---
+title: "Installation"
+description: "How to install Tartarus Punishments."
+---
+
+1. Place the jar in your server `plugins/` folder.
+2. Start/restart the server.
+3. Edit `plugins/TartarusPunishments/config.yml` to match your rules.
+4. Set the prison location in-game (recommended):
+   - `/setprison`
+
+## How it works (Mental Model)
+
+### Startup
+
+On enable (`tartarus.punishments.Punishments#onEnable`):
+
+- Loads and potentially auto-migrates config defaults (`ConfigManager#loadConfig`)
+- Initializes `DatabaseManager` (SQLite + schema migrations)
+- Initializes:
+  - `FreezeManager` (prison/screen-share freeze mechanics)
+  - `PlayerJoinListener` (ban checks + applying prison state on join)
+  - `ScreenshareManager` (screenshare state tracking + reject ban)
+  - `MuteListener` (chat/command blocking)
+- Registers commands and listeners
+
+### Where punishment data lives
+
+- **Persistent state**: SQLite file at `plugins/TartarusPunishments/bans.db`
+  - Primary tables:
+    - `bans` (stores all punishment types: ban/mute/prison)
+    - `ip_bans` (optional IP bans)
+    - `last_seen_ip` (tracks last IP for offline bans)

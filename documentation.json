@@ -128,8 +128,24 @@
             "group": "JanusMCD",
             "pages": [
               {
-                "title": "Documentation",
-                "path": "olympiTech/JanusMCD"
+                "title": "Introduction",
+                "path": "olympiTech/janus-mcd/introduction"
+              },
+              {
+                "title": "Installation",
+                "path": "olympiTech/janus-mcd/installation"
+              },
+              {
+                "title": "Configuration",
+                "path": "olympiTech/janus-mcd/configuration"
+              },
+              {
+                "title": "Commands",
+                "path": "olympiTech/janus-mcd/commands"
+              },
+              {
+                "title": "Features",
+                "path": "olympiTech/janus-mcd/features"
               }
             ]
           },
@@ -137,8 +153,24 @@
             "group": "Tartarus Punishments",
             "pages": [
               {
-                "title": "Documentation",
-                "path": "olympiTech/TartarusPunishments"
+                "title": "Introduction",
+                "path": "olympiTech/tartarus-punishments/introduction"
+              },
+              {
+                "title": "Installation",
+                "path": "olympiTech/tartarus-punishments/installation"
+              },
+              {
+                "title": "Configuration",
+                "path": "olympiTech/tartarus-punishments/configuration"
+              },
+              {
+                "title": "Commands",
+                "path": "olympiTech/tartarus-punishments/commands"
+              },
+              {
+                "title": "Features",
+                "path": "olympiTech/tartarus-punishments/features"
               }
             ]
           },
@@ -146,8 +178,20 @@
             "group": "Ananke World Control",
             "pages": [
               {
-                "title": "Documentation",
-                "path": "olympiTech/AnankeWorldControl"
+                "title": "Introduction",
+                "path": "olympiTech/ananke-world-control/introduction"
+              },
+              {
+                "title": "Installation",
+                "path": "olympiTech/ananke-world-control/installation"
+              },
+              {
+                "title": "Configuration",
+                "path": "olympiTech/ananke-world-control/configuration"
+              },
+              {
+                "title": "Commands",
+                "path": "olympiTech/ananke-world-control/commands"
               }
             ]
           },
@@ -155,8 +199,8 @@
             "group": "Nyx Plugin Masking",
             "pages": [
               {
-                "title": "Documentation",
-                "path": "olympiTech/NyxPluginMasking"
+                "title": "Introduction",
+                "path": "olympiTech/nyx-plugin-masking/introduction"
               }
             ]
           }

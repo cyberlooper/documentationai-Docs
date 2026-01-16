@@ -1,0 +1,30 @@
+---
+title: "Introduction"
+description: "Overview of Tartarus Punishments."
+---
+
+# Tartarus Punishments
+
+Tartarus Punishments is a lightweight punishment plugin for Bukkit/Paper/Purpur/Spigot servers.
+
+## Overview
+
+It focuses on a simple workflow:
+
+- You define **reason presets** in `config.yml` (duration, punishment type, staff permission level, inventory clearing)
+- Staff run commands like `/punish`, `/forgive`, `/prison`, `/screenshare`
+- The plugin stores punishment state in a local SQLite database (`plugins/TartarusPunishments/bans.db`)
+- Players are blocked/kicked at the right times (pre-login ban checks, mute checks, prison freeze)
+
+## Punishment Types
+
+- **BAN** (UUID ban + optional IP ban)
+- **MUTE** (blocks chat + command usage; only used if you define a reason preset with `punishmentType: mute`)
+- **PRISON** (teleport + freeze + return location)
+- **Screenshare** (freezes a player and automatically bans them if they log out during the screenshare)
+
+## Requirements
+
+- **Minecraft server**: Bukkit/Paper/Purpur/Spigot
+- **Minecraft version**: 1.21.x (plugin `api-version: 1.21`)
+- **Java**: 21+

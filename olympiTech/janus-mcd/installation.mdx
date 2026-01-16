@@ -1,0 +1,21 @@
+---
+title: "Installation"
+description: "How to install and set up JanusMCD."
+---
+
+## Server Owners
+
+1. Drop the JanusMCD jar into `plugins/`.
+2. Start the server once to generate configs under `plugins/JanusMCD/`.
+3. Edit your live configs in `plugins/JanusMCD/*.yml` (the files in `src/main/resources/` are only defaults bundled in the jar).
+4. Set `discord-token` and at least one entry in `channel-ids`.
+5. Restart the server (or use `/janusmcd reload` for supported hot-reload items).
+
+## Startup sequence
+
+- `JanusMCD#onEnable()` initializes:
+  - `DebugManager`
+  - `ConfigManager` (loads multiple YAMLs and can watch for file changes)
+  - `DatabaseManager`
+  - Feature managers (account linking, auth, freeze, vanish, advancements, death messages, etc.)
+  - `DiscordManager` which boots JDA asynchronously.

@@ -1,0 +1,66 @@
+---
+title: "Configuration"
+description: "Configuration reference for Tartarus Punishments."
+---
+
+Config file path: `plugins/TartarusPunishments/config.yml`
+
+## `ban-reasons`
+
+This is the core of the plugin. Each key under `ban-reasons` defines a preset reason you can use with `/punish <player> <key>`.
+
+Each reason supports:
+
+- **`duration`** (string)
+  - Parsed by `DurationParser`.
+  - Supports: `s`, `m`, `h`, `d`, `w` (seconds/minutes/hours/days/weeks).
+  - Chained values like `1h30m`.
+  - Special value: `perma` => permanent.
+- **`punishmentType`** (string): `ban`, `mute`, `prison` (case-insensitive).
+- **`inventoryClear`** (bool): If true, clears the player’s inventory when banned.
+- **`reason`** (string): Display reason.
+- **`customReason`** (string): If set, this becomes the displayed reason.
+- **`permission`** (string)
+  - Controls who can use this specific reason.
+  - `admin`, `moderator`, `helper`, or a direct permission node.
+
+Example:
+
+```yaml
+ban-reasons:
+  spam:
+    duration: 12h
+    customReason: ""
+    permission: helper
+    # Scaling Options (Optional)
+    mode: "default" # "default", "linear", or "fractal"
+```
+
+## `ban-message`
+
+Controls the kick/deny screen the user sees when banned.
+
+```yaml
+ban-message:
+  lines:
+    - text: "You are banned from this server!"
+      color: red
+    - "&7Reason: &f{reason}"
+    - "&7Duration: &f{duration}"
+    - "&7Banned by: &f{banner}"
+  inventory-cleared-line:
+    text: "Your inventory has been cleared."
+    color: red
+```
+
+## `screenshare`
+
+Controls screenshare behavior.
+
+- **`screenshare.timeout-minutes`** (int)
+- **`screenshare.message`** (string)
+- **`screenshare.reject`**: Defines the special punishment applied if the player logs out during a screenshare.
+
+## `prison.location`
+
+This is written automatically by `/setprison`. If not set, imprisoning will still store the record, but players might not be teleported anywhere.

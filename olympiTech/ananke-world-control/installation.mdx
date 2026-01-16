@@ -1,0 +1,26 @@
+---
+title: "Installation"
+description: "How to install Ananke World Control."
+---
+
+1. Put the jar into `plugins/`.
+2. Start/restart your server.
+3. Configure:
+   - `plugins/AnankeWorldControl/config.yml` (feature toggles + messages)
+   - `plugins/AnankeWorldControl/blocks.yml` (block allow/deny list)
+   - `plugins/AnankeWorldControl/mobs.yml` (mob allow/deny list)
+   - `plugins/AnankeWorldControl/crafting.yml` (crafting allow/deny list)
+   - `plugins/AnankeWorldControl/dimensions.yml` (dimension rules)
+   - `plugins/AnankeWorldControl/custom-blocks.yml` (custom block allow/deny list)
+
+## Permissions
+
+Defined in `plugin.yml`:
+
+- `ananke.worldcontrol.admin`
+  - Required for `/awc ...`
+  - Default: op
+
+- `ananke.worldcontrol.bypass`
+  - Bypasses *most* restrictions (block placement/break/interact, crafting prevention, dimension restrictions, etc.)
+  - Default: op

@@ -1,0 +1,33 @@
+---
+title: "Commands"
+description: "Command reference for /awc."
+---
+
+All subcommands require `ananke.worldcontrol.admin`.
+
+### `/awc reload`
+Reloads all configuration files.
+
+### `/awc block <material> <true|false>`
+Sets whether a vanilla block material is allowed in `blocks.yml`.
+Example: `/awc block TNT false`
+
+### `/awc mob <type> <true|false>`
+Sets whether a mob can spawn in `mobs.yml`.
+Example: `/awc mob CREEPER false`
+
+### `/awc craft <item> <true|false>`
+Sets whether crafting/smelting an item is allowed in `crafting.yml`.
+Example: `/awc craft GOLDEN_APPLE false`
+
+### `/awc customblock ...`
+- `list`: Lists known custom block IDs.
+- `set <id> <true|false>`: Allow/deny custom block.
+
+### `/awc feature <name> <true|false>`
+Toggles a feature in `config.yml`.
+Example: `/awc feature fire-spread false`
+
+### `/awc dimension <nether|end|nether-roof> <true|false>`
+Sets dimension defaults in `dimensions.yml`.
+Example: `/awc dimension nether false`

@@ -1,0 +1,57 @@
+---
+title: "Configuration"
+description: "Configuration reference for Ananke World Control."
+---
+
+## `config.yml` (feature toggles)
+
+Location: `plugins/AnankeWorldControl/config.yml`
+
+The main config is organized into categories. In general:
+- `true` means **allowed**
+- `false` means **blocked**
+
+Categories:
+- `environment.*`: Fire spread, weather, grass spread, leaf decay, ice/snow.
+- `physics.*`: Block physics, gravity blocks, water/lava spread, fluid mixing.
+- `mobs.*`: Phantom spawn, enderman grief, explosions (creeper, wither, tnt).
+- `players.*`: Fall damage, hunger loss, natural regen, void protection.
+- `interactions.*`: Redstone, flint & steel, chest interaction.
+
+## `blocks.yml`
+
+Auto-generated allow/deny list for vanilla blocks.
+- `default-enabled` (boolean)
+- `blocks.<MATERIAL_NAME>`
+
+## `mobs.yml`
+
+Auto-generated allow/deny list for mob spawning.
+- `default-enabled` (boolean)
+- `mobs.<ENTITY_TYPE>`
+
+## `crafting.yml`
+
+Auto-populated by scanning server recipes.
+- `default-enabled` (boolean)
+- `materials.<MATERIAL_NAME>`
+
+## `dimensions.yml`
+
+Controls dimension access and Nether roof.
+- `defaults.nether-enabled`
+- `defaults.end-enabled`
+- `defaults.prevent-nether-roof`
+- `defaults.nether-roof-min-y` (default `128`)
+
+## `weapons.yml`
+
+Controls weapon restrictions and limits.
+- `defaults.limit`: Max allowed per player (0 = unlimited).
+- `weapons.<MATERIAL>`.`enabled`: Allow/Deny specific weapon.
+- `weapons.<MATERIAL>`.`limit`: Override limit for specific weapon.
+
+## `custom-blocks.yml`
+
+For ItemsAdder/Oraxen/Nexo or PDC-based custom blocks.
+- `blocks.<customId>` => `true|false`
