@@ -37,3 +37,23 @@ A: **Yes**, fully supported via **SkinsRestorer**.
 - JanusMCD detects SkinsRestorer (v14 and v15+) automatically.
 - It uses the player's *Skin Name* (set via `/skin`) to fetch the avatar, ensuring the webhook matches their visual appearance, not their Steve/Alex UUID.
 - Default `avatar-url` templates (e.g., `mc-heads.net`) support this out of the box.
+
+## Server Reports
+
+The `/report` command generates a visual health check for your server. It tracks key metrics to help you understand player engagement and retention.
+
+### Metrics Explained
+
+| Metric | Full Name | What it means |
+| :--- | :--- | :--- |
+| **DAU** | Daily Active Users | The number of unique players who joined the server in the last **24 hours**. This shows your immediate daily traffic. |
+| **MAU** | Monthly Active Users | The number of unique players who joined in the last **30 days**. This indicates your overall active player base size. |
+| **Conversion** | Link Conversion Rate | The percentage of your **total player interactions** that have linked their Discord account. <br>*(Formula: Total Linked Accounts / Total Unique Visitors)*.<br>A high conversion rate means effective onboarding to your Discord community. |
+| **Retention** | Player Retention (Day 1 / 7) | The percentage of new players who **returned** to play again after a specific time.<br>- **Day 1**: Players who joined yesterday and came back today.<br>- **Day 7**: Players who joined a week ago and are playing today.<br>Higher retention means players are enjoying the server enough to stick around. |
+| **Avg Session** | Average Session Length | The average amount of time a player spends on the server in a single sitting (calculated over the last 7 days). |
+
+### Using this Data
+
+- **Low Day 1 Retention?** Players might be confused or bored during their first impression. Check your spawn and tutorial.
+- **Low Conversion?** Players aren't linking their accounts. Consider adding incentives or making the linking process more visible.
+- **High MAU but Low DAU?** You have many players, but they don't play often. Events might help bring them back more frequently.
