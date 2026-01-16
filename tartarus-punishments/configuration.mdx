@@ -36,24 +36,22 @@ ban-reasons:
     mode: "default" # "default", "linear", or "fractal"
 
   # Linear Mode
-  # Increases duration linearly or by a set multiplier.
+  # "Three Strikes" style: After N offenses, apply a specific punishment.
   spam:
     mode: "linear"
-    base-duration: 30m
-    max-duration: 24h
-    multiplier: 2.0 # (Optional) Multiplies duration each time (30m -> 1h -> 2h...)
-    # OR
-    increment: 30m # (Optional) Adds time each time (30m -> 1h -> 1h30m...)
+    linear-threshold: 3      # After 3 offenses...
+    linear-action: "ban"     # ...perform this action...
+    linear-duration: "24h"   # ...for this duration.
 
-  # Fractal (Ladder) Mode
-  # Uses a pre-defined ladder of punishments for each offense.
+  # Fractal Mode
+  # A custom ladder of specific punishments for each offense.
   swearing:
     mode: "fractal"
-    ladder:
-      1: "1h"
-      2: "12h"
-      3: "3d"
-      4: "perma"
+    steps:
+      - ["mute", "1h"]   # 1st Offense
+      - ["mute", "12h"]  # 2nd Offense
+      - ["ban", "3d"]    # 3rd Offense
+      - ["ban", "perma"] # 4th Offense
 ```
 
 ## `ban-message`
