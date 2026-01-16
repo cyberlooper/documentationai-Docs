@@ -12,115 +12,6 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
-        "icon": "book",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "icon": "rocket",
-            "pages": [
-              {
-                "title": "Introduction",
-                "path": "introduction",
-                "icon": "home"
-              },
-              {
-                "title": "Quickstart",
-                "path": "quickstart",
-                "icon": "zap"
-              }
-            ]
-          },
-          {
-            "group": "Core Concepts",
-            "icon": "layers",
-            "pages": [
-              {
-                "title": "Features",
-                "path": "features",
-                "icon": "star"
-              }
-            ]
-          },
-          {
-            "group": "Advanced",
-            "icon": "package",
-            "pages": [
-              {
-                "title": "Integrations",
-                "path": "integrations",
-                "icon": "plug"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "icon": "code",
-        "groups": [
-          {
-            "group": "Endpoints",
-            "openapi": "openapi.yaml"
-          }
-        ]
-      },
-      {
-        "tab": "Help Center",
-        "icon": "help-circle",
-        "pages": [
-          {
-            "title": "Help Center",
-            "path": "help-center",
-            "icon": "home"
-          },
-          {
-            "group": "FAQs",
-            "icon": "help-circle",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Connecting Discord",
-                "path": "help-center/faq/connecting-discord"
-              }
-            ]
-          },
-          {
-            "group": "Troubleshooting",
-            "icon": "alert-triangle",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Discord Not Syncing",
-                "path": "help-center/troubleshooting/discord-not-syncing"
-              }
-            ]
-          },
-          {
-            "group": "Guides",
-            "icon": "book-open",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Add Plugin Page",
-                "path": "help-center/guides/add-plugin-page"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Changelog",
-        "icon": "clock",
-        "pages": [
-          {
-            "title": "Release History",
-            "path": "changelog",
-            "icon": "history"
-          }
-        ]
-      },
-      {
         "tab": "Plugins",
         "icon": "box",
         "groups": [
@@ -129,23 +20,23 @@
             "pages": [
               {
                 "title": "Introduction",
-                "path": "olympiTech/janus-mcd/introduction"
+                "path": "janus-mcd/introduction"
               },
               {
                 "title": "Installation",
-                "path": "olympiTech/janus-mcd/installation"
+                "path": "janus-mcd/installation"
               },
               {
                 "title": "Configuration",
-                "path": "olympiTech/janus-mcd/configuration"
+                "path": "janus-mcd/configuration"
               },
               {
                 "title": "Commands",
-                "path": "olympiTech/janus-mcd/commands"
+                "path": "janus-mcd/commands"
               },
               {
                 "title": "Features",
-                "path": "olympiTech/janus-mcd/features"
+                "path": "janus-mcd/features"
               }
             ]
           },
@@ -154,23 +45,23 @@
             "pages": [
               {
                 "title": "Introduction",
-                "path": "olympiTech/tartarus-punishments/introduction"
+                "path": "tartarus-punishments/introduction"
               },
               {
                 "title": "Installation",
-                "path": "olympiTech/tartarus-punishments/installation"
+                "path": "tartarus-punishments/installation"
               },
               {
                 "title": "Configuration",
-                "path": "olympiTech/tartarus-punishments/configuration"
+                "path": "tartarus-punishments/configuration"
               },
               {
                 "title": "Commands",
-                "path": "olympiTech/tartarus-punishments/commands"
+                "path": "tartarus-punishments/commands"
               },
               {
                 "title": "Features",
-                "path": "olympiTech/tartarus-punishments/features"
+                "path": "tartarus-punishments/features"
               }
             ]
           },
@@ -179,19 +70,19 @@
             "pages": [
               {
                 "title": "Introduction",
-                "path": "olympiTech/ananke-world-control/introduction"
+                "path": "ananke-world-control/introduction"
               },
               {
                 "title": "Installation",
-                "path": "olympiTech/ananke-world-control/installation"
+                "path": "ananke-world-control/installation"
               },
               {
                 "title": "Configuration",
-                "path": "olympiTech/ananke-world-control/configuration"
+                "path": "ananke-world-control/configuration"
               },
               {
                 "title": "Commands",
-                "path": "olympiTech/ananke-world-control/commands"
+                "path": "ananke-world-control/commands"
               }
             ]
           },
@@ -200,7 +91,7 @@
             "pages": [
               {
                 "title": "Introduction",
-                "path": "olympiTech/nyx-plugin-masking/introduction"
+                "path": "nyx-plugin-masking/introduction"
               }
             ]
           }

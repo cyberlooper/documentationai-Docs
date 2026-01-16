@@ -1,97 +1,16 @@
----
-title: Introduction to OlympiTech
-description: Discover OlympiTech, the ultimate wiki platform for Minecraft plugins with seamless Discord community integration. Learn about its key features and how it enhances plugin documentation and collaboration.
----
+# Plugin Documentation
 
-## Overview
+Welcome to the official documentation for our server plugins.
 
-OlympiTech empowers Minecraft plugin developers to create dynamic wikis with full Discord integration. You build comprehensive documentation for your plugins while keeping your community engaged through real-time updates in Discord channels. Say goodbye to static README files—OlympiTech syncs edits, discussions, and releases automatically, fostering collaboration between developers and players.
+## Plugins
 
-This platform handles everything from markdown-based wiki pages to plugin version tracking, all tied to your Discord server. Developers benefit from version control, search optimization, and community feedback loops, making plugin maintenance effortless.
+Explore the guides for our key plugins:
 
-## Key Features
+- [JanusMCD](janus-mcd/introduction.mdx) - Minecraft-Discord Bridge
+- [Tartarus Punishments](tartarus-punishments/introduction.mdx) - Advanced Punishment System
+- [Ananke World Control](ananke-world-control/introduction.mdx) - World & Mechanic Management
+- [Nyx Plugin Masking](nyx-plugin-masking/introduction.mdx) - Data Privacy & Masking
 
-OlympiTech stands out with features tailored for Minecraft ecosystems. Explore the core capabilities below.
+## Navigation
 
-<Columns cols={3}>
-  <Card title="Wiki Editing" icon="edit-3" href="#wiki-editing">
-    Create rich markdown wikis with syntax highlighting for Java, YAML configs, and more. Embed images, videos, and code blocks directly.
-  </Card>
-  <Card title="Discord Syncing" icon="message-circle" href="#discord-sync">
-    Automatically post wiki updates, plugin releases, and discussions to Discord channels. Use webhooks for instant notifications.
-  </Card>
-  <Card title="Plugin Management" icon="package" href="#plugin-management">
-    Track versions, changelogs, and dependencies. Integrate with SpigotMC or CurseForge for seamless imports.
-  </Card>
-</Columns>
-
-<Callout kind="info">
-  All features support multiplayer permissions, so your Discord roles map directly to wiki edit access.
-</Callout>
-
-## Quick Start
-
-Get up and running in minutes. Follow these steps to launch your first OlympiTech wiki.
-
-<Steps>
-  <Step title="Sign Up" icon="user-plus">
-    Create an account at `https://olympitech.com` using your Discord account for instant OAuth integration.
-  </Step>
-  <Step title="Create Wiki" icon="book-open">
-    Select "New Wiki" and enter your plugin name, like "EssentialsX". Choose a Discord server to link.
-  </Step>
-  <Step title="Configure Sync" icon="settings">
-    Set up webhooks in Discord. Use this example configuration:
-    
-````yaml
-webhooks:
-  updates: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
-  discussions: "https://discord.com/api/webhooks/YOUR_DISCORD_WEBHOOK"
-````
-    
-    Replace placeholders with your values.
-  </Step>
-  <Step title="Publish First Page" icon="upload">
-    Write your plugin overview in markdown and hit publish. Watch it appear in your Discord `#plugin-updates` channel.
-  </Step>
-</Steps>
-
-## Example Integration
-
-See how OlympiTech syncs with a Minecraft plugin config. This YAML example triggers Discord notifications on wiki edits.
-
-<CodeGroup tabs="YAML Config,Java Listener">
-````yaml
-# config.yml for your Bukkit plugin
-olympitech:
-  enabled: true
-  api-url: "https://api.olympitech.com/v1"
-  wiki-id: "your-wiki-slug"
-  discord-webhook: "https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN"
-````
-
-````java
-// Plugin listener example
-@EventHandler
-public void onWikiUpdate(WikiUpdateEvent event) {
-    OlympiTechAPI.sendDiscordUpdate(event.getWikiId(), "New changes published!");
-}
-````
-</CodeGroup>
-
-## Next Steps
-
-Dive deeper into OlympiTech:
-
-<Columns cols={2}>
-  <Card title="Quickstart Guide" icon="zap" href="/quickstart">
-    Set up your first full wiki with advanced features.
-  </Card>
-  <Card title="Authentication" icon="shield" href="/authentication">
-    Secure your wiki and Discord integrations.
-  </Card>
-</Columns>
-
-<Expandable title="Need Help?" default-open="false">
-  Join our Discord community at `https://discord.olympitech.com` or check the [changelog](/changelog) for latest updates.
-</Expandable>
+Use the sidebar to navigate to specific plugin documentation.
