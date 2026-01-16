@@ -1,59 +1,119 @@
 ---
 title: "Features"
-description: "In-depth explanation of JanusMCD features."
+description: "In-depth explanation of every JanusMCD feature."
 ---
 
-## Proximity Voice Chat
+# JanusMCD Features
 
-**How it works:**
-1. Players join the **Lobby Channel** in Discord (configured in `voice.yml`).
-2. JanusMCD tracks their in-game location.
-3. If players are within `proximity-radius` of each other, the bot **automatically** moves them into a temporary **Voice Group** channel.
-4. When they move apart, they are returned to the Lobby or reassigned to new groups.
+This guide explains every feature in JanusMCD in simple terms.
 
-**Note**: This feature is entirely automated. There are no in-game commands for players to run.
+## 🔗 Account Linking
 
-## Stealth Vanish
+Connect your Minecraft player to your Discord user.
 
-JanusMCD uses **ProtocolLib** for deep stealth integration. This provides true invisibility at the packet level.
+### What is it?
+This allows the server to know *who you are* on Discord when you are playing Minecraft, and vice-versa.
 
-**Capabilities**:
-- **Entity Hiding**: You are completely invisible to clients.
-- **Silent Chests**: Opening chests/barrels/shulkers while vanished does NOT trigger opening animations or sounds for other players.
-- **Tab-Complete Protection**: Vanished players are removed from tab-complete lists.
-- **Server List Suppression**: Vanished players are hidden from the server list player count/hover.
+### Why use it?
+- **Sync your identity**: Your Discord name and avatar can appear in Minecraft chat.
+- **Security**: Server owners can require you to change your password or verify your location if you login from a weird place.
+- **Cross-Ban**: If you get banned on one account, all your other linked accounts can be banned too.
 
-## Account Linking
+### How it works
+1. You type `/link` in Minecraft.
+2. The bot sends you a code.
+3. You DM the code to the bot on Discord.
+4. Done! You are linked.
 
-- Players can link their Discord account to their Minecraft account via a DM-based verification flow.
-- Supports enforcing a limit on links per Discord account (e.g. max 1 or 3).
-- Verification codes expire after a configured time.
-- Logging webhooks track link creations/removals.
+---
 
-## SkinsRestorer Integration
+## 🎙️ Proximity Voice Chat
 
-**Q: My server is in Offline/Cracked mode. Will heads work in webhooks?**
-A: **Yes**, fully supported via **SkinsRestorer**.
-- JanusMCD detects SkinsRestorer (v14 and v15+) automatically.
-- It uses the player's *Skin Name* (set via `/skin`) to fetch the avatar, ensuring the webhook matches their visual appearance, not their Steve/Alex UUID.
-- Default `avatar-url` templates (e.g., `mc-heads.net`) support this out of the box.
+Talk to nearby players using Discord Voice.
 
-## Server Reports
+### What is it?
+It automatically moves you into a Discord voice channel with the people standing near you in the game.
 
-The `/report` command generates a visual health check for your server. It tracks key metrics to help you understand player engagement and retention.
+### How it works
+1. Join the **"Lobby"** voice channel in Discord.
+2. Walk close to another player in-game.
+3. The bot **drags** both of you into a private "Voice Group" channel.
+4. Walk away, and the bot moves you back to the lobby or into a new group.
 
-### Metrics Explained
+> **Note:** You don't need to install any mods on your computer. It just uses standard Discord.
 
-| Metric | Full Name | What it means |
-| :--- | :--- | :--- |
-| **DAU** | Daily Active Users | The number of unique players who joined the server in the last **24 hours**. This shows your immediate daily traffic. |
-| **MAU** | Monthly Active Users | The number of unique players who joined in the last **30 days**. This indicates your overall active player base size. |
-| **Conversion** | Link Conversion Rate | The percentage of your **total player interactions** that have linked their Discord account. <br>*(Formula: Total Linked Accounts / Total Unique Visitors)*.<br>A high conversion rate means effective onboarding to your Discord community. |
-| **Retention** | Player Retention (Day 1 / 7) | The percentage of new players who **returned** to play again after a specific time.<br>- **Day 1**: Players who joined yesterday and came back today.<br>- **Day 7**: Players who joined a week ago and are playing today.<br>Higher retention means players are enjoying the server enough to stick around. |
-| **Avg Session** | Average Session Length | The average amount of time a player spends on the server in a single sitting (calculated over the last 7 days). |
+---
 
-### Using this Data
+## 👻 Stealth Vanish
 
-- **Low Day 1 Retention?** Players might be confused or bored during their first impression. Check your spawn and tutorial.
-- **Low Conversion?** Players aren't linking their accounts. Consider adding incentives or making the linking process more visible.
-- **High MAU but Low DAU?** You have many players, but they don't play often. Events might help bring them back more frequently.
+Become completely invisible to moderate the server.
+
+### What is it?
+A super-powered "invisibility potion" for admins. When you are vanished, standard players cannot see you, tab-complete your name, or know you are online.
+
+### Features
+- **True Invisibility**: You don't send any data to other players. Hacked clients cannot see you.
+- **Silent Chests**: Open chests without the lid moving or making a sound.
+- **Fake Logout**: When you vanish, it can say "Player left the game" so people think you are gone.
+
+---
+
+## 📊 Server Reports
+
+Get a quick health check of your server.
+
+### What is it?
+A command (`/report`) that builds a colorful graph and list of numbers to show how popular your server is.
+
+### The Numbers Explained
+
+| Metric | What it means |
+| :--- | :--- |
+| **DAU** (Daily Active Users) | How many unique humans played **today**. |
+| **MAU** (Monthly Active Users) | How many unique humans played **this month**. |
+| **Conversion** | What % of your players have linked their Discord account. High is good! |
+| **Retention** | What % of new players **came back** the next day. If this is low, your server might be boring for new players. |
+| **Avg Session** | How long the average player stays online before quitting. |
+
+---
+
+## 📢 Status Embeds
+
+A live "Server Status" billboard in Discord.
+
+### What is it?
+A message in a Discord channel that **updates itself** every minute. It never creates spam; it just edits the same message forever.
+
+### What it shows
+- **Status**: 🟢 Online / 🔴 Offline
+- **Uptime**: How long the server has been running (e.g., "4d 12h").
+- **TPS**: "Ticks Per Second". A measure of server lag. (20.00 is perfect).
+- **Player List**: Shows who is online. If they are linked, it shows their Discord tag too!
+
+---
+
+## 🏆 Advancement Notifications
+
+Show off your achievements in Discord.
+
+### What is it?
+When a player gets an advancement (like "Diamonds!" or "The End?"), the bot posts a message in Discord.
+
+### Customization
+- **Colors**: Different colors for Tasks (Blue), Goals (Green), and Challenges (Orange).
+- **Icons**: Adds emojis based on the type of advancement (🔥 for Nether, 🌲 for Husbandry).
+
+---
+
+## 💬 Chat Relay & Filtering
+
+Connects Minecraft Chat to Discord Chat.
+
+### What is it?
+- **Minecraft -> Discord**: Your in-game chat appears in a Discord channel.
+- **Discord -> Minecraft**: Messages typed in Discord appear in-game.
+
+### Smart Filtering
+The bot uses a "Leetspeak Decoder" to catch bad words even if people try to hide them.
+- `b4d w0rd` -> Detected as "bad word".
+- `vvord` -> Detected as "word".

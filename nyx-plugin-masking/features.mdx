@@ -1,0 +1,41 @@
+---
+title: "Features"
+description: "In-depth explanation of Nyx Masking."
+---
+
+# Nyx Features
+
+Protecting sensitive information in chat and logs.
+
+## 🎭 Data Masking
+
+Hide secrets automatically.
+
+### What is it?
+Nyx (the Goddess of Night) puts a "mask" over sensitive text so nobody can read it.
+
+### How it works
+The plugin watches for things that look like secrets, such as:
+- **IP Addresses**: `192.168.1.1` becomes `***.***.***.***`
+- **Emails**: `steve@minecraft.com` becomes `*****@*********.***`
+- **Phone Numbers**: `555-0199` becomes `***-****`
+- **Credit Cards**: `1234-5678-9012-3456` becomes `****-****-****-****`
+
+### Why use it?
+- **Privacy**: Protects players from accidentally leaking their personal info in public chat.
+- **Safety**: Prevents "doxxing" (maliciously sharing someone's address).
+- **Compliance**: Helps server logs meet privacy rules (like GDPR) by not storing personal data forever.
+
+---
+
+## ⚙️ Configuration
+
+You decide what to hide.
+
+### What is it?
+You can create your own "patterns" (using Regex) to hide anything you want.
+
+### Examples
+- Hide **Curse Words**: Use it as a simple chat filter.
+- Hide **Server Names**: Stop people from advertising other servers (e.g., `play.otherserver.com`).
+- Hide **Admin Codes**: If you have secret codes for staff, mask them so regular players can't see them.

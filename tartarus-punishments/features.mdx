@@ -1,36 +1,88 @@
 ---
 title: "Features"
-description: "Advanced features like Scaling and Integrations."
+description: "In-depth explanation of every Tartarus feature."
 ---
 
-## Punishment Scaling
+# Tartarus Features
 
-Tartarus Punishments supports three powerful scaling modes to automate discipline:
+A simple guide to the punishment system.
 
-### 1. Global Linear Scaling
-- **Disabled by default**.
-- A "Three Strikes" style system.
-- Every time a player receives **any** punishment, their global strike count increases.
-- If they hit the `threshold`, the configured `action` is applied.
+## 🔨 Bans & Mutes
 
-### 2. Linear Mode (Per Reason)
-- Configured inside a specific `ban-reason` (e.g. `mode: linear`).
-- Counts how many times the player has been punished for *this specific reason*.
-- If they hit the `linear-threshold`, the `linear-action` is applied.
+The basics of keeping bad actors away.
 
-### 3. Fractal Mode (Per Reason)
-- Configured inside a specific `ban-reason` (e.g. `mode: fractal`).
-- Defines a list of `steps` (ladder).
-- Example:
-    - Step 1: 1 hour Mute
-    - Step 2: 12 hour Mute
-    - Step 3: 7 day Ban
-    - Step 4: Permanent Ban
-- The plugin automatically applies the next step in the ladder.
+### What is it?
+- **Ban**: Stops a player from joining the server.
+- **Mute**: Stops a player from chatting or using commands.
 
-## Integrations
+### How it works
+- **IP Bans**: If you ban a player, the plugin also remembers their IP address. If they try to join on an "alt" account from the same house, they are blocked too.
+- **Duration**: You can ban someone for `10m` (10 minutes), `5d` (5 days), or `perma` (forever).
 
-### JanusMCD
-Tartarus Punishments automatically detects if **JanusMCD** is installed.
-- It registers a **Ban Checker** with JanusMCD.
-- If you use JanusMCD's "Linked Accounts" feature, banning one account via Tartarus will automatically prevent all other linked accounts from joining usage.
+---
+
+## ⛓️ The Prison
+
+A time-out corner for players acting up.
+
+### What is it?
+Instead of kicking them off the server, you lock them in a jail cell.
+
+### How it works
+1. Admin runs `/prison <player> 10m`.
+2. The player is teleported to the jail cell (set with `/setprison`).
+3. They are **Frozen**! They cannot move, jump, or break blocks.
+4. They just have to sit there and think about what they did.
+5. When the time is up, they are automatically teleported back to where they were.
+
+---
+
+## 🖥️ Screenshare Checks
+
+Freeze a suspicious player for inspection.
+
+### What is it?
+If you think someone is cheating (x-ray, fly hacks), you can freeze them to check their computer (over Discord screenshare, usually).
+
+### How it works
+1. Admin runs `/screenshare <player>`.
+2. The player is frozen and sees a big message: "You are being checked. Join Discord."
+3. **The Trap**: If they panic and disconnect (log out) while frozen, the system **automatically bans them**. This catches cheaters who try to run away!
+
+---
+
+## 📈 Punishment Scaling
+
+Automated discipline that gets stricter every time.
+
+### What is it?
+The plugin remembers a criminal record for every player. If they break the rules again, the punishment gets worse automatically.
+
+### Modes
+
+#### 1. "Three Strikes" (Global Linear)
+- **Strike 1**: You get warned.
+- **Strike 2**: You get muted.
+- **Strike 3**: You get banned!
+*(You set the number of strikes and the final punishment).*
+
+#### 2. The Ladder (Fractal Mode)
+For specific rules (like "Swearing"), you can set a ladder of punishments:
+- **1st Offense**: 1 hour Mute.
+- **2nd Offense**: 1 day Mute.
+- **3rd Offense**: 1 week Ban.
+- **4th Offense**: Permanent Ban.
+
+The plugin tracks this *per player, per reason*. So being muted for spamming won't make your "x-raying" status worse.
+
+---
+
+## 🔗 Cross-Ban (JanusMCD Integration)
+
+Banning one account bans them all.
+
+### What is it?
+If you have **JanusMCD** installed and players have linked their Discord accounts:
+- Banning `PlayerA` will verify who they are on Discord.
+- It sees that `PlayerB` is also linked to that same Discord account.
+- **Both** `PlayerA` and `PlayerB` are banned instantly.

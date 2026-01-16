@@ -73,6 +73,10 @@
                 "path": "ananke-world-control/introduction"
               },
               {
+                "title": "Features",
+                "path": "ananke-world-control/features"
+              },
+              {
                 "title": "Installation",
                 "path": "ananke-world-control/installation"
               },
@@ -92,6 +96,10 @@
               {
                 "title": "Introduction",
                 "path": "nyx-plugin-masking/introduction"
+              },
+              {
+                "title": "Features",
+                "path": "nyx-plugin-masking/features"
               }
             ]
           }
