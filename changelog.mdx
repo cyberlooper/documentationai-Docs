@@ -1,0 +1,153 @@
+---
+title: Changelog
+description: Track the latest updates and improvements to OlympiTech. This page lists recent releases with details on new features, bug fixes, and enhancements.
+---
+
+## Release History
+
+OlympiTech evolves rapidly to better serve Minecraft server communities. You stay informed on new features like enhanced Discord integrations and wiki editing tools. Review the latest releases below, ordered newest first.
+
+<Callout kind="info">
+  Subscribe to our Discord server at `https://discord.example.com/olympitech` for instant release notifications and community feedback.
+</Callout>
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added real-time plugin search with fuzzy matching for quick wiki lookups.
+- Introduced Discord slash commands for `/wiki <plugin>` to fetch summaries directly in channels.
+- Enabled community voting on wiki pages via Discord reactions.
+
+## Improvements
+
+- Optimized wiki rendering for `<100ms` load times on high-traffic servers.
+- Enhanced mobile support for Discord embeds.
+
+## Bug Fixes
+
+- Fixed Discord webhook timeouts during peak hours.
+- Resolved plugin tag filtering issues in the search UI.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Integrated GitHub sync for plugin repositories directly into wiki pages.
+- Added role-based permissions for wiki editing via Discord bots.
+
+## Bug Fixes
+
+- Patched authentication bypass in Discord OAuth flow.
+- Corrected Minecraft version compatibility badges on plugin pages.
+
+## Performance
+
+- Reduced database queries by 40% for wiki page loads.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## New Features
+
+- Launched core wiki engine with Markdown support for plugin documentation.
+- Full Discord integration: bots post updates, users query via commands.
+
+## Breaking Changes
+
+- Migrated config from YAML to JSON format. Update your `config.json` file.
+
+## Initial Setup
+
+- Basic authentication with Discord OAuth.
+
+</Update>
+
+## Upgrading OlympiTech
+
+Follow these steps to upgrade safely. Always back up your database and `config.json` first.
+
+<Steps>
+  <Step title="Backup Data" icon="database">
+
+    Create backups:
+
+````bash
+cp -r /path/to/olympitech/data /backup/olympitech-$(date +%Y%m%d)
+cp config.json /backup/config.json
+````
+
+  </Step>
+  <Step title="Update Package" icon="download">
+
+    Use your package manager:
+
+    <CodeGroup tabs="npm,yarn">
+    ````bash
+npm install olympitech@latest --save
+````
+    ````bash
+yarn add olympitech@latest
+````
+    </CodeGroup>
+
+  </Step>
+  <Step title="Migrate Config" icon="settings">
+    If upgrading from v0.x, convert YAML to JSON:
+
+    <CodeGroup tabs="Before,After">
+    ````json
+    // config.yaml (old)
+    discord:
+      token: YOUR_TOKEN
+      guild: 123456789
+    wiki:
+      db: postgres://user:pass@localhost/olympitech
+    ````
+    ````json
+    {
+      "discord": {
+        "token": "YOUR_TOKEN",
+        "guild": "123456789"
+      },
+      "wiki": {
+        "db": "postgres://user:pass@localhost/olympitech"
+      }
+    }
+    ````
+    </CodeGroup>
+  </Step>
+  <Step title="Restart Service" icon="refresh-cw">
+    Restart your OlympiTech instance:
+
+````bash
+systemctl restart olympitech
+# or
+pm2 restart olympitech
+````
+
+    Verify with `curl https://your-server.com/health`.
+
+  </Step>
+</Steps>
+
+<Callout kind="alert">
+  For v1.2.0+, ensure your Discord bot has `applications.commands` scope. Regenerate token if needed.
+</Callout>
+
+## Quick Links
+
+<Columns cols={3}>
+  <Card title="v1.2.0 Notes" icon="zap" href="#2024-10-15">
+    Real-time search and slash commands.
+  </Card>
+  <Card title="v1.1.0 Notes" icon="package" href="#2024-09-20">
+    GitHub sync and permissions.
+  </Card>
+  <Card title="Upgrade Guide" icon="book-open" href="#upgrading-olympitech">
+    Step-by-step migration.
+  </Card>
+</Columns>
