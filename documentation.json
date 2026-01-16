@@ -119,6 +119,48 @@
             "icon": "history"
           }
         ]
+      },
+      {
+        "tab": "Olympitech Plugins",
+        "icon": "box",
+        "groups": [
+          {
+            "group": "JanusMCD",
+            "pages": [
+              {
+                "title": "Documentation",
+                "path": "olympiTech/JanusMCD"
+              }
+            ]
+          },
+          {
+            "group": "Tartarus Punishments",
+            "pages": [
+              {
+                "title": "Documentation",
+                "path": "olympiTech/TartarusPunishments"
+              }
+            ]
+          },
+          {
+            "group": "Ananke World Control",
+            "pages": [
+              {
+                "title": "Documentation",
+                "path": "olympiTech/AnankeWorldControl"
+              }
+            ]
+          },
+          {
+            "group": "Nyx Plugin Masking",
+            "pages": [
+              {
+                "title": "Documentation",
+                "path": "olympiTech/NyxPluginMasking"
+              }
+            ]
+          }
+        ]
       }
     ]
   }
