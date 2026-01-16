@@ -1,6 +1,6 @@
 {
   "name": "Plugins",
-  "initialRoute": "introduction",
+  "initialRoute": "index",
   "colors": {
     "light": {
       "brand": "#3B82F6"
@@ -15,6 +15,15 @@
         "tab": "Plugins",
         "icon": "box",
         "groups": [
+          {
+            "group": "Home",
+            "pages": [
+              {
+                "title": "Welcome",
+                "path": "index"
+              }
+            ]
+          },
           {
             "group": "JanusMCD",
             "pages": [
