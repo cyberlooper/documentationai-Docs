@@ -1,5 +1,5 @@
 {
-  "name": "OlympiTech",
+  "name": "Plugins",
   "initialRoute": "introduction",
   "colors": {
     "light": {
@@ -121,7 +121,7 @@
         ]
       },
       {
-        "tab": "Olympitech Plugins",
+        "tab": "Plugins",
         "icon": "box",
         "groups": [
           {

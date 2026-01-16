@@ -1,46 +1,16 @@
-# Welcome to Olympitech Wiki
+# Plugin Documentation
 
-This is the official documentation for the Olympitech platform, providing comprehensive guides and references for all major components.
+Welcome to the official documentation for our server plugins.
 
-## Getting Started
+## Plugins
 
-Explore the following key components:
+Explore the guides for our key plugins:
 
-- [JanusMCD](JanusMCD.md) - Core system component
-- [Tartarus Punishments](TartarusPunishments.md) - Rule enforcement system
-- [Nyx Plugin: Masking](NyxPluginMasking.md) - Data obfuscation tools
-- [Ananke World Control](AnankeWorldControl.md) - Environment management
+- **JanusMCD** - Minecraft-Discord Bridge
+- **Tartarus Punishments** - Advanced Punishment System
+- **Ananke World Control** - World & Mechanic Management
+- **Nyx Plugin Masking** - Data Privacy & Masking
 
-## Local Development
+## Navigation
 
-To run the documentation locally:
-
-```bash
-# Install dependencies
-pip install mkdocs mkdocs-material
-
-# Start the development server
-mkdocs serve
-```
-
-## Building for Production
-
-```bash
-# Build the static site
-mkdocs build
-
-# Deploy to GitHub Pages
-mkdocs gh-deploy
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-This documentation is part of the Olympitech platform and is proprietary software.
+Use the sidebar to navigate to specific plugin documentation.
