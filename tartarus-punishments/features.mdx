@@ -60,14 +60,15 @@ The plugin remembers a criminal record for every player. If they break the rules
 
 ### Modes
 
-#### 1. "Three Strikes" (Global Linear)
-- **Strike 1**: You get warned.
-- **Strike 2**: You get muted.
-- **Strike 3**: You get banned!
-*(You set the number of strikes and the final punishment).*
+#### 1. "Linear" Mode
+- **Calculated Punishment**: The duration increases mathematically for each offense.
+- **Formulas**:
+  - `Multiplier`: Doubles (or triples, etc.) the time each offense (30m -> 1h -> 2h).
+  - `Increment`: Adds a fixed time each offense (30m -> 1h -> 1h30m).
+- **Caps**: You can set a `max-duration` so it never exceeds, say, 24 hours.
 
-#### 2. The Ladder (Fractal Mode)
-For specific rules (like "Swearing"), you can set a ladder of punishments:
+#### 2. "Fractal" (Ladder) Mode
+For specific rules (like "Swearing"), you can set a custom **ladder** of punishments:
 - **1st Offense**: 1 hour Mute.
 - **2nd Offense**: 1 day Mute.
 - **3rd Offense**: 1 week Ban.

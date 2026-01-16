@@ -34,6 +34,26 @@ ban-reasons:
     permission: helper
     # Scaling Options (Optional)
     mode: "default" # "default", "linear", or "fractal"
+
+  # Linear Mode
+  # Increases duration linearly or by a set multiplier.
+  spam:
+    mode: "linear"
+    base-duration: 30m
+    max-duration: 24h
+    multiplier: 2.0 # (Optional) Multiplies duration each time (30m -> 1h -> 2h...)
+    # OR
+    increment: 30m # (Optional) Adds time each time (30m -> 1h -> 1h30m...)
+
+  # Fractal (Ladder) Mode
+  # Uses a pre-defined ladder of punishments for each offense.
+  swearing:
+    mode: "fractal"
+    ladder:
+      1: "1h"
+      2: "12h"
+      3: "3d"
+      4: "perma"
 ```
 
 ## `ban-message`
