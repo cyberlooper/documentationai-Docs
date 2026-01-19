@@ -22,8 +22,31 @@ This allows the server to know *who you are* on Discord when you are playing Min
 ### How it works
 1. You type `/link` in Minecraft.
 2. The bot sends you a code.
-3. You DM the code to the bot on Discord.
+3. You DM the code to the bot on Discord (or use `/link` in Discord).
 4. Done! You are linked.
+
+### New: Linked Account Enforcement
+JanusMCD can now enforce bans across all linked accounts. If a player has multiple Minecraft accounts linked to the same Discord ID, and one of them is banned (via **Tartarus Punishments** or the native ban system), **ALL** of them will be prevented from joining.
+
+### Security
+Admins can check the link status of any player using `/link status <user/uuid/name>`, which reveals all accounts connected to a single Digital identity.
+
+---
+
+## 🚫 Ban Synchronization
+
+Synchronize bans between your Minecraft Server and Discord Guild.
+
+### Discord -> Minecraft
+If a user is banned on your Discord server:
+- **Real-Time**: If they are online in Minecraft, they are immediately kicked and banned.
+- **Offline Reconciliation**: If they were offline during the ban, the next time they try to join, JanusMCD checks their Discord status. If they are banned on Discord, they are denied entry.
+- **Unban Sync**: If you unban them on Discord, they are automatically unbanned in Minecraft.
+
+### Minecraft -> Discord
+If a player is banned in Minecraft (and is linked):
+- The bot finds their Discord account and bans them from the Discord server.
+- The reason is synced: "Synced Ban: [Minecraft Reason]".
 
 ---
 
@@ -77,18 +100,18 @@ A command (`/report`) that builds a colorful graph and list of numbers to show h
 
 ---
 
-## 📢 Status Embeds
+## 📢 Status Embeds & Alerts
 
-A live "Server Status" billboard in Discord.
+### Status Embeds
+A live "Server Status" billboard in Discord. It updates every minute to show:
+- 🟢 **Online** / 🔴 **Offline** status.
+- **TPS** (Server Performance).
+- **Player Count** & List (with linked Discord tags!).
 
-### What is it?
-A message in a Discord channel that **updates itself** every minute. It never creates spam; it just edits the same message forever.
-
-### What it shows
-- **Status**: 🟢 Online / 🔴 Offline
-- **Uptime**: How long the server has been running (e.g., "4d 12h").
-- **TPS**: "Ticks Per Second". A measure of server lag. (20.00 is perfect).
-- **Player List**: Shows who is online. If they are linked, it shows their Discord tag too!
+### Custom Event Alerts
+JanusMCD can now monitor **any** Bukkit event.
+- **Example**: Admin wants to know when a player kills a specific mob or triggers a specific plugin event.
+- You can configure this in the config to send an alert to a specific Discord channel when that event happens.
 
 ---
 
@@ -105,15 +128,15 @@ When a player gets an advancement (like "Diamonds!" or "The End?"), the bot post
 
 ---
 
-## 💬 Chat Relay & Filtering
+## 💬 Chat Relay & Smart Filtering
 
-Connects Minecraft Chat to Discord Chat.
-
-### What is it?
-- **Minecraft -> Discord**: Your in-game chat appears in a Discord channel.
-- **Discord -> Minecraft**: Messages typed in Discord appear in-game.
+Connects Minecraft Chat to Discord Chat with safety in mind.
 
 ### Smart Filtering
-The bot uses a "Leetspeak Decoder" to catch bad words even if people try to hide them.
-- `b4d w0rd` -> Detected as "bad word".
-- `vvord` -> Detected as "word".
+The filtering engine has been completely overhauled to be smarter than standard "banned word" lists.
+
+- **Leetspeak Decoder**: It reads "h4ck3r" as "hacker" and "w0rd" as "word".
+- **Strict vs. Smart Boundaries**:
+  - *Strict*: Blocks specific independent words (e.g. "bad") but allows them inside others (e.g. "superbad" might be allowed if configured).
+  - *Smart Phrases*: Can detect multi-word phrases like "bad phrase".
+- **URL Blocking**: Automatically scrubs links from chat to prevent advertising spam.

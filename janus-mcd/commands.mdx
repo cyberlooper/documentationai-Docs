@@ -33,9 +33,12 @@ These commands are registered on **all** Discord servers the bot is in, but requ
 
 ### Link Management
 
-*   **`/link status <user>`**
+*   **`/link status <user> | <username> | <uuid>`**
     *   **Permission**: `MANAGE_SERVER` (Admin Only)
-    *   Checks the account link status for a Discord user.
+    *   Checks the account link status for a user. You can provide:
+        *   A Discord User (@Mention or ID).
+        *   A Minecraft Username.
+        *   A Minecraft UUID.
 *   **`/link remove <user> <uuid>`**
     *   **Permission**: `MANAGE_SERVER`
     *   Removes a specific Minecraft account link from a Discord user.
