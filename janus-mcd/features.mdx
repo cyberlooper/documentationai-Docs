@@ -20,10 +20,16 @@ This allows the server to know *who you are* on Discord when you are playing Min
 - **Cross-Ban**: If you get banned on one account, all your other linked accounts can be banned too.
 
 ### How it works
-1. You type `/link` in Minecraft.
-2. The bot sends you a code.
-3. You DM the code to the bot on Discord (or use `/link` in Discord).
-4. Done! You are linked.
+
+1. Player joins the Minecraft server
+2. If not linked, JanusMCD **automatically generates** a 6-digit verification code
+3. The code is sent to the player **in-game** (via chat message)
+4. Player **DMs the code** to the Discord bot
+5. Bot verifies the code and links the accounts
+6. Player is unfrozen and can play
+
+> [!IMPORTANT]
+> **There is NO `/link` command in Minecraft**. The verification code is automatically generated and sent to players when they join the server. Players must DM the code to the Discord bot to complete linking.
 
 ### New: Linked Account Enforcement
 JanusMCD can now enforce bans across all linked accounts. If a player has multiple Minecraft accounts linked to the same Discord ID, and one of them is banned (via **Tartarus Punishments** or the native ban system), **ALL** of them will be prevented from joining.

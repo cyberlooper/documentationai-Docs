@@ -1,38 +1,175 @@
 ---
 title: Introduction
-description: 'Overview of JanusMCD, a Minecraft-Discord bridge plugin.'
+description: 'Overview of JanusMCD, a comprehensive Minecraft-Discord integration plugin with security, authentication, and synchronization features.'
 ---
+
 # JanusMCD
 
-JanusMCD is a Minecraft server plugin (Spigot/Paper 1.16.5+) that bridges chat and operational events between Minecraft and Discord.
+**JanusMCD is a modern, secure Discord ↔ Minecraft integration plugin** that provides real-time chat syncing, passwordless player authentication, and comprehensive Discord-based identity verification.
 
-## Features
+Built for servers that demand reliability, security, and seamless community integration without forcing players to use passwords or complicated commands.
 
-- **Two-way chat relay** (Minecraft `<>` Discord) with **Webhook Impersonation** support
+---
 
-- **Multi-channel sync** (one Minecraft server to multiple Discord channels, with optional cross-Discord relay)
+## 🎯 What is JanusMCD?
 
-- **Console relay + command execution** (optional)
+JanusMCD brings your Discord community and Minecraft server together by:
+- **Synchronizing chat** between Minecraft and Discord in real-time
+- **Linking accounts** for unified identity across platforms
+- **Enforcing security** through VPN protection, account verification, and ban synchronization
+- **Providing moderation tools** like vanish, console access, and command logging
+- **Enabling voice chat** based on in-game proximity
 
-- **Filtering / anti-spam** controls for Discord-originated messages
+---
 
-- **Server status embeds** (auto-updating online/offline + players + TPS)
+## ✨ Key Features
 
-- **Account linking + auth flows** (DM-based linking + login protections)
+### 🔄 Comprehensive Synchronization
+- **Chat Relay**: Real-time 2-way chat with webhook impersonation (player skins as avatars)
+- **Role Sync**: Automatically sync Minecraft permission groups (Vault) to Discord roles
+- **Nickname Sync**: Keep Discord nicknames consistent with Minecraft usernames
+- **Ban Sync**: Bidirectional ban enforcement (ban in-game → ban on Discord, and vice-versa)
+- **Cross-Discord Sync**: Relay chat across multiple Discord servers simultaneously
 
-- **Advancement and death notifications**
+### 🛡️ Advanced Security Suite
+- **VPN/Proxy Protection**: Multi-provider waterfall (ProxyCheck, VPNAPI, IPQualityScore, IPHub)
+- **IP Monitoring**: Detects and blocks VPN cycling attempts
+- **Nuclear Blacklist**: Air-gap defense preventing critical commands via Discord
+- **Console Command Security**: Role-based access control for Discord console commands
+- **Connection Throttling**: Anti-bot protection preventing join spam attacks
 
-- **Stealth Vanish** (Packet-level hiding via ProtocolLib for true invisibility + Silent Chests)
+### 👥 Identity & Authentication
+- **Passwordless Authentication**: Secure, code-based verification via Discord DMs
+- **STRICT Linking Mode**: Prevents public channel linking to stop brute-force attempts
+- **Account Age Requirements**: Block brand-new Discord accounts from linking
+- **Linked Account Enforcement**: Ban one account → all linked accounts banned
+- **Trusted Sessions**: Auto-vouch players from same IP within 24 hours
+- **Duplicate Login Prevention**: Prevents session hijacking
 
-- **Proximity Voice Chat** (Location-based Discord voice channels with smart clustering)
+### 🌐 Network Support
+- **Velocity Integration**: Full support for Velocity proxy networks
+- **Gateway & Enforcer Model**: Proxy handles auth, backend servers enforce
+- **Single Sign-On (SSO)**: Authenticate once, trusted across all servers
+- **Cross-Server Sync**: Account linking synced across entire network
+- **Folia Compatible**: Native support for Folia's regionized threading
 
-## Requirements
+### 🎨 Customization & Features
+- **Webhook Impersonation**: 4 modes (MINECRAFT, DISCORD, HYBRID_MINECRAFT, HYBRID_DISCORD)
+- **Join/Leave Customization**: Fully customizable messages with embeds and avatars
+- **Advancement Notifications**: Configurable advancement announcements with filtering
+- **Death Messages**: Customizable death message embeds
+- **Server Notifications**: Automatic startup/shutdown announcements
+- **Command Logging**: Audit trail for all in-game commands
 
-- **Minecraft server**: Spigot/Paper 1.16.5 or newer
+### 💬 Smart Chat Filtering
+- **Leetspeak Decoder**: Detects "h4ck3r" as "hacker" and "w0rd" as "word"
+- **Smart Boundaries**: Strict word matching with phrase detection
+- **Regex Patterns**: Advanced pattern-based filtering
+- **URL Blocking**: Automatically removes links to prevent advertising
+- **Anti-Spam**: Rate limiting for chat messages
 
+### 👻 Moderation Tools
+- **Stealth Vanish**: Packet-level invisibility with ProtocolLib
+  - Silent chests (no animation or sound)
+  - Tab-complete protection
+  - Configurable suppression (join/leave, advancements, deaths)
+  - Interaction controls (pickup, damage, mob targeting)
+- **Freeze Command**: Immobilize players for moderation
+- **Console Relay**: View console and execute commands from Discord
+
+### 🎙️ Proximity Voice Chat
+- **Location-Based Channels**: Automatically moves players into voice channels based on proximity
+- **Smart Clustering**: Groups nearby players together efficiently
+- **Spectator Mode**: Separate channel for dead players
+- **Mute on Death**: Prevents ghosting in PvP scenarios
+- **Configurable Radius**: Customize proximity distance
+
+### 📊 Advanced Features
+- **Status Embeds**: Live-updating server status panels in Discord
+- **Login Location Control**: Configure spawn points after authentication
+- **Webhook Mention Control**: Prevents @everyone abuse from Minecraft
+- **Debug Configuration**: Component-specific logging and performance monitoring
+- **Tartarus Integration**: Seamless integration with Tartarus Punishments plugin
+
+---
+
+## 🔧 Platform Support
+
+### Minecraft Servers
+- **Spigot/Paper**: 1.16.5 - 1.21.x
+- **Folia**: Full support with regionized schedulers
+- **Velocity**: Proxy integration with Gateway & Enforcer model
+
+### Requirements
 - **Java**: 17+
+- **Discord Bot**: Token + permissions to read/send messages
+- **ProtocolLib**: (Highly Recommended) Required for packet-level vanish features
 
-- **Discord**: Bot token + permissions to read/send messages in configured channels
+### Optional Dependencies
+- **Vault**: Required for role synchronization
+- **LuckPerms**: Recommended permission plugin
+- **Tartarus Punishments**: Enhanced punishment management
 
-- **ProtocolLib**: (Highly Recommended) Required for packet-level vanish (Silent Chests, Entity Hiding, Tab-Complete protection).
+---
 
+## 🚀 Quick Start
+
+1. **Install JanusMCD** on your server
+2. **Create a Discord bot** and get your bot token
+3. **Configure** `discord.yml` with your bot token and channel IDs
+4. **Restart** your server
+5. **Link your account** with `/link` in-game
+
+See the [Installation](/janus-mcd/installation) page for detailed setup instructions.
+
+---
+
+## 📚 Documentation
+
+- [Features](/janus-mcd/features) - Detailed explanation of every feature
+- [Configuration](/janus-mcd/configuration) - Complete configuration reference for all 11 config files
+- [Commands](/janus-mcd/commands) - Command reference and permissions
+- [Installation](/janus-mcd/installation) - Step-by-step installation guide
+
+---
+
+## 🔒 Security First
+
+JanusMCD is built with security as a top priority:
+
+- **Multi-layer VPN protection** with automatic failover
+- **Nuclear Blacklist** prevents critical commands from Discord
+- **STRICT linking mode** prevents code theft
+- **IP monitoring** detects suspicious behavior
+- **Account age requirements** prevent throwaway accounts
+- **Duplicate login prevention** stops session hijacking
+
+---
+
+## 🌟 Why JanusMCD?
+
+**For Players**:
+- No passwords to remember
+- Seamless chat between Minecraft and Discord
+- Single account linking across your network
+- Enhanced community integration
+
+**For Server Owners**:
+- Comprehensive security features
+- Easy to configure and maintain
+- Scales from single servers to large networks
+- Active development and support
+
+**For Communities**:
+- Bridge multiple Discord servers
+- Unified identity system
+- Enhanced moderation tools
+- Real-time synchronization
+
+---
+
+## 📖 Version
+
+Current version: **0.2.4**
+
+See the [CHANGELOG](https://github.com/cyberlooper/JanusMCD-paper/blob/main/CHANGELOG.md) for recent updates and changes.
