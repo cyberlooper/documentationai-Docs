@@ -1,81 +1,729 @@
 ---
 title: Configuration
-description: Detailed configuration reference for JanusMCD.
+description: Complete configuration reference for all JanusMCD settings.
 ---
 
-In version 0.2.0+, JanusMCD has split its configuration into multiple files for better organization. All configs live in `plugins/JanusMCD/`.
+# Configuration Reference
 
-## `discord.yml` (Core)
-Governs the bot connection, channel IDs, and basic status features.
+JanusMCD uses **11 configuration files** organized by feature area. All configs are located in `plugins/JanusMCD/`.
 
-- **`token`** (string): Your Discord Bot Token.
-- **`invite-url`**: The invite link for your Discord server.
-- **`allowed-guilds`**: List of Guild IDs the bot is allowed to join (Security).
-- **`channel-ids`**: List of channel IDs where **Chat Relay** happens.
-- **`console-channel-ids`**: Channels where you can execute console commands.
-- **`cross-discord-sync`** (bool): If true, chat from one relay channel is sent to others.
+> [!TIP]
+> After editing any config file, use `/janusmcd reload` to apply changes without restarting your server. Some changes (like bot token) require a full restart.
 
-### Status Embeds
-Live updating server status panels.
+---
+
+## Core Configuration Files
+
+### `discord.yml` - Discord Bot & Channels
+
+Controls the Discord bot connection, channels, and cosmetic features.
+
+#### Connection Settings
+
+```yaml
+# Your Discord bot token (required)
+token: "YOUR_DISCORD_BOT_TOKEN"
+
+# Invitation link for your Discord server
+invite-url: "https://discord.gg/yourcode"
+
+# Allowed Guilds (Security)
+# List of Guild IDs the bot is allowed to join
+# Leave empty to allow all guilds
+allowed-guilds: []
+```
+
+#### Channel Configuration
+
+**Simple Format** (Channel ID only):
+```yaml
+# Chat relay channels (supports multiple channels)
+# Minecraft chat will be synced to ALL these channels
+channel-ids:
+  - "YOUR_DISCORD_CHANNEL_ID_1"
+  - "YOUR_DISCORD_CHANNEL_ID_2"
+```
+
+**Advanced Format** (With webhook URLs and modes):
+```yaml
+channel-ids:
+  - id: "DISCORD_SERVER_1_CHANNEL_ID"
+    webhook_url: "https://discord.com/api/webhooks/..."
+    mode: "MINECRAFT"  # Options: MINECRAFT, DISCORD, HYBRID_MINECRAFT, HYBRID_DISCORD
+  
+  - id: "DISCORD_SERVER_2_CHANNEL_ID"
+    webhook_url: "https://discord.com/api/webhooks/..."
+    mode: "HYBRID_MINECRAFT"
+  
+  - id: "DISCORD_SERVER_3_CHANNEL_ID"
+    # No webhook - uses bot messages
+    mode: "DISCORD"
+```
+
+**Webhook Modes**:
+- `MINECRAFT` - Webhook impersonates Minecraft players (shows player skin as avatar)
+- `DISCORD` - Bot sends messages as itself (no impersonation)
+- `HYBRID_MINECRAFT` - Webhook for Minecraft → Discord, bot for Discord → Minecraft
+- `HYBRID_DISCORD` - Bot for Minecraft → Discord, webhook for Discord → Minecraft
+
+> [!TIP]
+> **Webhook Impersonation**: Using webhooks allows messages from Minecraft to appear with the player's Minecraft skin as the avatar and their username, making it feel like players are actually in Discord.
+
+```yaml
+# Console relay channels (optional)
+# Allows viewing console and executing commands
+console-channel-ids:
+  - "YOUR_CONSOLE_CHANNEL_ID"
+
+# Required Role ID for executing console commands (optional)
+# If set, ONLY users with this role can run commands (even the server owner)
+# Leave empty to allow anyone with channel access
+console-command-role-id: ""
+
+# Cross-Discord Sync
+# If true, messages from one Discord channel appear in all others
+# Perfect for multi-guild communities
+cross-discord-sync: true
+```
+
+#### Status Embeds
+
+Live updating server status panels in Discord.
+
 ```yaml
 status-embeds:
   - enabled: true
-    channel-id: "123456789"
-    update-interval: 60
+    channel-id: "YOUR_STATUS_CHANNEL_ID"
+    message-id: ""  # Auto-populated
+    server-name: "My Minecraft Server"
+    update-interval: 60  # Seconds
     detailed-info: true
     online-emoji: "🟢"
     offline-emoji: "🔴"
 ```
 
-## `synchronization.yml`
-Controls how data is synced between platforms.
+#### Server Notifications
 
-### Ban Synchronization
-- **`bans.sync-to-discord`**: Minecraft bans -> Discord bans.
-- **`bans.sync-to-minecraft`**: Discord bans -> Minecraft bans.
-- **`bans.sync-broadcast`**: Announce sync actions in chat.
+```yaml
+server-notifications:
+  # Channel IDs (defaults to all chat channels if empty)
+  channel-ids: []
+  startup:
+    enabled: true
+    message: "🟢 **Server is now online!** Come join us!"
+  shutdown:
+    enabled: true
+    message: "🔴 **Server is shutting down!** Thanks for playing!"
+```
 
-### Other Syncs
-- **`roles`**: Map Vault Groups to Discord Roles.
-- **`nicknames`**: Sync Minecraft usernames to Discord nicknames.
-- **`advancements`**: Post achievements to Discord.
-- **`death-messages`**: Post death messages to Discord.
+#### Join/Leave Messages
 
-## `security.yml`
-Protects your server from threats.
+```yaml
+join-leave-messages:
+  use-embeds: true
+  channel-id: ""  # Leave empty to use chat channels
+  colors:
+    join: "#43b581"  # Green
+    leave: "#f04747"  # Red
+  show-player-avatar: true
+  avatar-url: "https://mc-heads.net/avatar/{uuid}/100"
+  avatar-location: "thumbnail"  # or "author"
+  join-message: "👋 %player% joined the server"
+  leave-message: "👋 %player% left the server"
+```
 
-### VPN Protection
-Blocks players using VPNS/Proxies to bypass bans.
-- **`vpn-protection.enabled`**: Default `true`.
-- **`providers`**: Supports `proxycheck` (Default), `vpnapi`, `ipqualityscore`, `iphub`.
+#### Command Logging
 
-### IP Monitoring
-- **`ip-monitoring`**: Detects rapid IP switching (suspicious activity).
+```yaml
+command-logging:
+  enabled: true
+  channel-ids:
+    - "YOUR_LOGGING_CHANNEL_ID"
+  embed-color: "#3498db"
+```
 
-### Anti-Spam (Chat)
-- **`anti-spam.max-messages`**: Rate limits for chat.
-- **`connection-throttle`**: Prevents join-spam bots.
+---
 
-## `chat.yml`
-Controls the Smart Filtering engine.
+### `security.yml` - Protection & Moderation
 
-- **`filtering.enabled`**: global switch.
-- **`banned-words`**: List of strict words to block.
-- **`banned-phrases`**: List of phrases to block (smart matching).
-- **`banned-patterns`**: Regex patterns.
-- **`action`**: `block` (prevent sending), `replace` (stars), or `log` (silent notify).
-- **`block-urls`**: Automatically remove links from chat.
+Contains settings for VPN protection, anti-spam, and security features.
 
-## `account-linking.yml`
-Manages the linking (authentication) flow.
+#### Permissions
 
-- **`limits.max_links_per_discord`**: How many MC accounts one Discord user can have.
-- **`require-verification`**: If true, users might need to verify via DM.
+```yaml
+permissions:
+  # Discord Role ID that grants admin command access
+  # Bypasses default MANAGE_SERVER permission requirement
+  admin-role-id: ""
+```
 
-## `voice.yml`
-Proximity Voice Chat configuration.
+#### Anti-Spam Protection
 
-- **`lobby-channel-id`**: The "Waiting Room" voice channel.
-- **`category-id`**: Where usage voice channels are created.
-- **`proximity-radius`**: How far you can hear people (in blocks).
+```yaml
+anti-spam:
+  enabled: true
+  max-messages: 5
+  time-period: 10  # Seconds
+  cooldown: 60  # Seconds
+  notify-user: true
+  notify-message: "You are sending messages too quickly. Please wait {cooldown} seconds."
+```
 
+#### Connection Throttling
+
+Prevents bot join spam attacks.
+
+```yaml
+connection-throttle:
+  enabled: true
+  check-interval-seconds: 60
+  max-joins: 3
+  lockout-seconds: 180
+  kick-message: "§cYou are joining too quickly. Please wait %d seconds."
+```
+
+#### Security Settings
+
+```yaml
+# Prevent duplicate logins (session hijacking protection)
+prevent-duplicate-login: true
+
+# Disable mentions in webhook messages (@everyone, @here, role/user mentions)
+disable-webhook-mentions: true
+```
+
+#### VPN Protection
+
+Multi-provider waterfall system with smart failover.
+
+```yaml
+vpn-protection:
+  enabled: true
+  kick-message: "§cSecurity Alert\n\n§7VPNs or Proxies are not allowed on this server.\n§7Please disable any VPN services and try again."
+  cache-duration-hours: 24
+  
+  # Providers are checked in priority order (1 = highest)
+  # System automatically switches to next provider if one fails or hits limit
+  providers:
+    # ProxyCheck.io - 100 free daily queries
+    - service: "proxycheck"
+      enabled: true
+      priority: 1
+      key: ""  # Optional for free tier
+      daily-limit: 100
+
+    # VPNAPI.io - 1000 free daily queries (requires key)
+    - service: "vpnapi"
+      enabled: true
+      priority: 2
+      key: ""  # Get free key at vpnapi.io
+      daily-limit: 1000
+
+    # IPQualityScore - 5000 free monthly queries (requires key)
+    - service: "ipqualityscore"
+      enabled: true
+      priority: 3
+      key: ""  # Get free key at ipqualityscore.com
+      daily-limit: 166  # ~5000/30 days
+
+    # IPHub - Requires key
+    - service: "iphub"
+      enabled: true
+      priority: 4
+      key: ""
+      daily-limit: 1000
+```
+
+#### IP Monitoring
+
+Detects suspicious VPN cycling behavior.
+
+```yaml
+ip-monitoring:
+  enabled: true
+  max-ip-changes: 1
+  time-window-seconds: 60
+  kick-message: "§cSecurity Alert\n\n§7Suspicious connection behavior detected.\n§7You are switching IP addresses too quickly.\n§7Please wait a moment before reconnecting."
+```
+
+#### Login Location
+
+```yaml
+login-location:
+  # If true, returns player to last known location after auth
+  # If false, teleports to default spawn below
+  restore-last-location: true
+  
+  default-spawn:
+    world: "world"
+    x: 0.0
+    y: 100.0
+    z: 0.0
+    yaw: 0.0
+    pitch: 0.0
+```
+
+---
+
+### `synchronization.yml` - Data Sync
+
+Controls how data is synchronized between Minecraft and Discord.
+
+#### Role Synchronization
+
+```yaml
+synchronization:
+  enabled: true
+  
+  roles:
+    enabled: true
+    # If true, removes roles not listed here from the user
+    remove-other-roles: false
+    # Map Vault groups to Discord role IDs
+    mapping:
+      "admin": "123456789012345678"
+      "vip": "987654321098765432"
+      "default": "112233445566778899"
+```
+
+#### Nickname Synchronization
+
+```yaml
+  nicknames:
+    enabled: true
+    format: "%player%"  # Placeholders: %player%, %displayname%
+```
+
+#### Ban Synchronization
+
+```yaml
+  bans:
+    enabled: true
+    sync-to-discord: false  # Disabled by default to prevent accidental bans
+    sync-to-minecraft: true
+    sync-broadcast: true  # Announce bans in chat
+```
+
+#### Advancement Synchronization
+
+```yaml
+  advancements:
+    enabled: true
+    show-description: true
+    channel-id: ""  # Optional, defaults to chat channel
+    
+    # Embed preset: achievement (default), compact, or detailed
+    embed:
+      preset: "achievement"
+      color: "BLUE"
+      show_fields: true
+    
+    # Message formats
+    challenge-format: "{player} completed the Challenge [{advancement}]"
+    goal-format: "{player} reached the Goal [{advancement}]"
+    task-format: "{player} completed [{advancement}]"
+    
+    # Namespace filtering
+    included-namespaces:
+      - "minecraft"
+    excluded-namespaces:
+      - "minecraft:recipes"
+    
+    # Specific advancement exclusions
+    excluded-advancements:
+      - "minecraft:story/root"
+      - "minecraft:nether/root"
+      - "minecraft:end/root"
+      - "minecraft:adventure/root"
+      - "minecraft:husbandry/root"
+    
+    show-progress: true
+    show-icon: true
+    show-toast: true
+```
+
+#### Death Message Synchronization
+
+```yaml
+  death-messages:
+    enabled: true
+    channel-id: ""  # Optional, defaults to chat channel
+    use-embed: true
+    # Custom format (only used if use-embed is false)
+    message-format: "💀 **{player}** {message}"
+```
+
+---
+
+### `chat.yml` - Message Filtering
+
+Controls chat processing and filtering.
+
+```yaml
+filtering:
+  enabled: true
+  
+  # Banned words (case-insensitive, strict word boundaries)
+  banned-words:
+    - badword
+    - anotherbadword
+
+  # Banned phrases (case-insensitive, smart boundaries)
+  banned-phrases:
+    - "bad phrase"
+    - "another phrase"
+
+  # Regex patterns
+  banned-patterns:
+    # - "\\bspam\\d+\\b"
+
+  # Action: "block", "replace", or "log"
+  action: "block"
+  replace-with: "***"
+
+  # URL blocking
+  block-urls:
+    enabled: true
+    action: "replace"  # "block", "replace", or "log"
+    replace-with: "[URL removed]"
+```
+
+> [!NOTE]
+> JanusMCD includes a **Leetspeak Decoder** that reads "h4ck3r" as "hacker" and "w0rd" as "word" for smarter filtering.
+
+---
+
+### `account-linking.yml` - Authentication
+
+Manages the account linking and authentication flow.
+
+#### Core Settings
+
+```yaml
+account-linking:
+  enabled: true
+  
+  # Trusted Session: Auto-vouch players from same IP within X hours
+  trusted_session:
+    enabled: true
+    duration_hours: 24
+
+  # Spawn location for unauthenticated players
+  spawn_location:
+    enabled: false  # If false, uses server's main world spawn
+    world: "world"
+    x: 0.5
+    y: 100.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  
+  # If true, unlinked players are frozen until they link
+  mandatory-linking: false
+
+  # If true, linked players must verify via DM (2FA) when joining
+  require-authentication: true
+```
+
+#### Limits
+
+```yaml
+  limits:
+    # Maximum Minecraft accounts per Discord account (1-3)
+    max_links_per_discord: 1
+    # Maximum accounts from a single IP address (1-3)
+    max_links_per_ip: 1
+```
+
+#### Security
+
+```yaml
+  # Linking Mode: SIMPLE or STRICT
+  # SIMPLE: Allows linking in public channels if code is valid
+  # STRICT: If code sent in public, invalidates code, kicks player, warns user
+  linking-mode: "STRICT"
+  
+  messages:
+    strict-kick-minecraft: "&c&lSECURITY WARNING\n\n&7Your linking code was compromised because it was sent in a public channel.\n&7For your safety, the code has been invalidated.\n\n&ePlease rejoin to generate a NEW code and DM it to the bot."
+    strict-kick-discord: "**SECURITY WARNING**\n\nYour linking code was compromised because it was sent in a public channel.\nFor your safety, the code has been invalidated.\n\nPlease rejoin to generate a NEW code and DM it to the bot."
+  
+  security:
+    # Minimum Discord account age (days)
+    min-account-age-days: 7
+    # Require Discord profile picture
+    require-avatar: true
+    # Require Discord server membership
+    enforce-guild-membership: false
+```
+
+#### Messages & Logging
+
+```yaml
+# Code expiry time (minutes)
+code-expiry-minutes: 10
+
+# Messages
+link-message: "&ePlease link your account by entering this code in Discord: &a{code}"
+invalid-code-message: "&cInvalid or expired verification code. Please try again."
+success-message: "&aYour account has been successfully linked to Discord!"
+already-linked-message: "&cThis Discord account is already linked to another Minecraft account."
+
+# Cooldown before requesting another code (seconds)
+cooldown-seconds: 60
+
+# Logging
+logging:
+  log-channel: ""  # Legacy, prefer webhook
+  webhook: ""  # Recommended
+  log-auth-success: true
+  log-auth-failures: true
+  log-link-created: true
+  log-link-removed: true
+  log-link-cleared: true
+  
+  messages:
+    auth-success: "✅ **{player}** (`{uuid}`) has been successfully authenticated!"
+    auth-failed: "❌ Failed authentication attempt for **{player}** (`{uuid}`)"
+    link-created: "🔗 **{player}** (`{uuid}`) linked to <@{discord_id}>"
+    link-removed: "❌ Link removed: **{player}** (`{uuid}`) from <@{discord_id}>"
+    link-cleared: "🗑️ All links cleared for <@{discord_id}>"
+```
+
+---
+
+## Feature Configuration Files
+
+### `voice.yml` - Proximity Voice Chat
+
+Configures location-based Discord voice channels.
+
+```yaml
+# Enable proximity voice chat
+enabled: true
+
+# Discord Category ID where voice channels are managed/created
+# Bot needs MANAGE_CHANNELS and MOVE_MEMBERS permissions
+category-id: "123456789012345678"
+
+# Lobby voice channel ID (waiting room)
+# Players must join this channel to be detected
+lobby-channel-id: "123456789012345678"
+
+# Maximum distance between players to be in same group (blocks)
+proximity-radius: 20
+
+# How often to recalculate groups and move players (seconds)
+# WARNING: Setting too low hits Discord rate limits (10 requests/10s)
+# Recommended: 5-10 seconds
+update-interval: 5
+
+# Format for created voice channels
+channel-name-format: "Voice Group {id}"
+
+# Minimum players required to form a private group
+min-players-for-group: 2
+
+# Mute players who are dead in-game
+mute-on-death: true
+
+# Spectator mode
+spectator-mode:
+  enabled: true
+  channel-name: "Spectators"
+```
+
+---
+
+### `vanish.yml` - Stealth System
+
+Configures the advanced vanish system.
+
+```yaml
+# Enable vanish system
+enabled: true
+
+# Automatically vanish players with permission on join
+vanish-on-join: false
+
+# Suppression settings
+suppression:
+  # Suppress join/leave messages in Minecraft chat
+  ingame-messages: true
+  # Suppress join/leave messages in Discord
+  discord-messages: true
+  # Suppress advancement announcements
+  advancements: true
+  # Suppress death messages
+  death-messages: true
+
+# Player interaction settings while vanished
+interactions:
+  # Prevent picking up items
+  prevent-item-pickup: true
+  # Prevent mobs from targeting vanished players
+  prevent-mob-targeting: true
+  # Prevent interacting with blocks (containers, buttons, etc.)
+  prevent-block-interaction: false
+  # Prevent taking damage
+  prevent-damage: true
+
+# Action bar message shown to vanished players
+# Set to "" to disable
+action-bar-message: "&b&lVANISHED &r&7- You are invisible to others"
+```
+
+> [!IMPORTANT]
+> **ProtocolLib Required**: For true packet-level invisibility (silent chests, tab-complete protection, entity hiding), you must install ProtocolLib. Without it, standard Bukkit hiding is used.
+
+---
+
+### `proxy.yml` - Velocity Integration
+
+Settings for Velocity proxy network integration.
+
+```yaml
+# Enable proxy integration features
+enabled: false
+
+# Authentication Synchronization
+authentication:
+  # If true, verify with proxy if player is already authenticated
+  # Enables "Single Sign-On" across your network
+  trust-proxy-auth: true
+
+  # What to do if player is NOT authenticated when joining this server?
+  # true = Redirect to lobby server immediately
+  # false = Force local authentication on this server
+  redirect-unauthenticated: true
+
+  # Lobby server name (as defined in velocity.toml)
+  # Unauthenticated players will be sent here
+  lobby-server: "lobby"
+
+# Messaging
+messaging:
+  # Plugin messaging channel for auth sync
+  # DO NOT CHANGE unless you know what you're doing
+  channel: "janus:auth"
+```
+
+> [!NOTE]
+> **Gateway & Enforcer Model**: In Velocity networks, the proxy acts as the **Gateway** (handles all trust decisions), while backend servers act as **Enforcers** (strictly validate the Gateway's decisions via secure channels).
+
+---
+
+## Security Configuration Files
+
+### `nuclear-blacklist.yml` - Command Protection
+
+Air-gap defense for Discord console commands. These commands are **BLOCKED** from Discord execution regardless of user permissions.
+
+```yaml
+nuclear-blacklist:
+  # CATEGORY: AUTHORITY & PERMISSIONS
+  # Prevents rank elevation and "Force OP" backdoors
+  rank-control:
+    - "op"            # Never allow via Discord
+    - "deop"          # Prevents stripping owner perms
+    - "luckperms"     # Primary permission engine
+    - "lp"            # LuckPerms alias
+    - "permissions"   # Legacy permission alias
+    - "pex"           # PermissionsEx (legacy)
+    - "groupmanager"  # Legacy rank management
+    - "execute"       # CRITICAL: Blocks "/execute as @a run op @s" bypasses
+    - "sudo"          # Forcing others to run commands
+
+  # CATEGORY: INFRASTRUCTURE & NETWORK
+  # Prevents server shutdowns and proxy manipulation
+  server-stability:
+    - "stop"          # Prevents remote DDoS/shutdowns
+    - "restart"       # Prevents restart-loop attacks
+    - "reload"        # High risk: crashes plugins and breaks auth
+    - "rl"            # Reload alias
+    - "bungee"        # Prevents proxy manipulation
+    - "velocity"      # Prevents Velocity config changes
+    - "server"        # Blocks jumping between servers
+
+  # CATEGORY: DATA & WORLD INTEGRITY
+  # Prevents world wipes, mass bans, database theft
+  data-integrity:
+    - "save-off"      # Disabling saves = massive data loss
+    - "whitelist"     # Prevents adding alt accounts
+    - "pardon"        # Prevents mass-unbanning griefers
+    - "unban"         # Pardon alias
+    - "pardon-ip"     # Prevents clearing IP blacklist
+    - "ban-ip"        # Prevents banning entire playerbase
+    - "datapack"      # Prevents injecting malicious functions
+    - "litebans"      # Prevents database wipes
+
+  # CATEGORY: FORENSICS & RECONNAISSANCE
+  # Prevents attackers from finding vulnerabilities
+  reconnaissance:
+    - "plugins"       # Hides your "blueprints"
+    - "pl"            # Plugins alias
+    - "version"       # Prevents finding unpatched CVEs
+    - "ver"           # Version alias
+    - "about"         # Another version info leak
+```
+
+> [!CAUTION]
+> **Recursive Filtering**: JanusMCD uses recursive filtering. Blocking `op` also blocks `minecraft:op`, `bukkit:op`, etc.
+
+---
+
+## Advanced Configuration Files
+
+### `debug.yml` - Troubleshooting
+
+Debug logging configuration for troubleshooting.
+
+> [!TIP]
+> Enable debug logging when experiencing issues. Check `plugins/JanusMCD/logs/` for detailed logs.
+
+---
+
+### `plugin.yml` - Plugin Metadata
+
+Auto-generated file containing plugin metadata, commands, and permissions. **Do not edit manually.**
+
+---
+
+## Configuration Tips
+
+### Best Practices
+
+1. **Always backup configs** before making changes
+2. **Use `/janusmcd reload`** after editing (some changes require restart)
+3. **Test in staging** before applying to production
+4. **Enable debug logging** when troubleshooting
+5. **Keep bot token secure** - never share publicly
+
+### Common Issues
+
+**Bot won't connect?**
+- Check `token` in discord.yml
+- Verify bot has proper permissions
+- Check `allowed-guilds` isn't blocking your server
+
+**VPN protection not working?**
+- Verify at least one provider has a valid API key
+- Check provider daily limits haven't been exceeded
+- Review `cache-duration-hours` setting
+
+**Players can't link accounts?**
+- Check `linking-mode` (STRICT requires DMs)
+- Verify `min-account-age-days` isn't too high
+- Check `require-avatar` setting
+
+**Proxy sync not working?**
+- Ensure `proxy.yml` has `enabled: true` on backend servers
+- Verify `trust-proxy-auth: true` is set
+- Check `lobby-server` name matches velocity.toml
+
+---
+
+## Need Help?
+
+- Check the [Troubleshooting](/janus-mcd/troubleshooting) page
+- Review [Advanced Setup](/janus-mcd/advanced-setup) for complex configurations
+- Join the Discord support server (link in README)
